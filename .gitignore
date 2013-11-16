@@ -1,0 +1,12 @@
+/*
+!/mcp
+/mcp/*
+!/mcp/eclipse
+/mcp/eclipse/*
+!/mcp/eclipse/Minecraft
+/mcp/eclipse/Minecraft/*
+!/mcp/eclipse/Minecraft/src-mod
+
+!/.gitignore
+!/README.md
+!/LICENSE
