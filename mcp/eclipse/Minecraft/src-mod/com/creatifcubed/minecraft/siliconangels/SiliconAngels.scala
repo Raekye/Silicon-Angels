@@ -1,15 +1,15 @@
 package com.creatifcubed.minecraft.siliconangels;
 
-import cpw.mods.fml.common.{ Mod, SidedProxy, FMLLog };
-import cpw.mods.fml.common.Mod.{ Instance, EventHandler };
-import cpw.mods.fml.common.event.{ FMLPreInitializationEvent, FMLInitializationEvent, FMLPostInitializationEvent
+import _root_.cpw.mods.fml.common.{ Mod, SidedProxy, FMLLog };
+import _root_.cpw.mods.fml.common.Mod.{ Instance, EventHandler };
+import _root_.cpw.mods.fml.common.event.{ FMLPreInitializationEvent, FMLInitializationEvent, FMLPostInitializationEvent
   , FMLServerStartingEvent, FMLServerStoppingEvent };
-import cpw.mods.fml.common.network.NetworkMod;
+import _root_.cpw.mods.fml.common.network.NetworkMod;
 
 import java.util.logging.Logger;
 import java.util.Arrays;
 
-import com.creatifcubed.minecraft.siliconangels.network.SiliconAngelsCommand;
+import com.creatifcubed.minecraft.siliconangels.network.{ PacketFactory, SiliconAngelsCommand };
 
 @Mod(modid=SiliconAngels.MOD_ID, name=SiliconAngels.MOD_NAME, version=SiliconAngels.MOD_VERSION, modLanguage="scala")
 @NetworkMod(serverSideRequired=true
@@ -32,6 +32,7 @@ object SiliconAngels {
 	final val MOD_NETWORKCHANNEL_A = "a";
 	
 	final val log = Logger.getLogger(MOD_SHORTNAME);
+	final val packetFactory = new PacketFactory();
 	
 	@SidedProxy(clientSide=MOD_PROXY_CLIENT, serverSide=MOD_PROXY_COMMON)
 	var proxy: CommonProxy = null;
@@ -50,7 +51,7 @@ object SiliconAngels {
 	
 	@EventHandler
 	def init(e: FMLInitializationEvent): Unit = {
-	  return;
+	  this.proxy.registerRegistries();
 	}
 	
 	@EventHandler

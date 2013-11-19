@@ -26,9 +26,15 @@ class EntryPlugZero(val pilot: IPilot) extends IEntryPlug {
     }
   }
   
+  def onTick(): Unit = {
+    return;
+  }
+  
   def faceDirection(degrees: Int): Unit = {
     return;
   }
   
-  
+  def setActiveItemOrBlock(itemOrBlockId: Int): Unit = {
+    return;
+  }
 }

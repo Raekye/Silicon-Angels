@@ -4,6 +4,7 @@ import com.creatifcubed.minecraft.siliconangels.models.{ IEntryPlug, EntryPlugZe
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
+import _root_.cpw.mods.fml.client.registry.KeyBindingRegistry;
 
 class ClientProxy extends CommonProxy {
   
@@ -23,5 +24,10 @@ class ClientProxy extends CommonProxy {
       player.movementInput = entryPlugZero.movementInputVanilla;
       entryPlugZero.movementInputVanilla = null;
     }
+  }
+  
+  override def registerRegistries(): Unit = {
+    super.registerRegistries();
+    KeyBindingRegistry.registerKeyBinding(new KeyHandler());
   }
 }
