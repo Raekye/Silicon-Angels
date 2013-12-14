@@ -1,33 +1,39 @@
 package com.creatifcubed.minecraft.siliconangels.models;
 
 import com.creatifcubed.minecraft.siliconangels.SiliconAngels;
+import com.creatifcubed.minecraft.siliconangels.network.SetActiveItemOrBlock;
 
 import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.MovementInput;
+import _root_.cpw.mods.fml.relauncher.{ Side, SideOnly };
 
+@SideOnly(Side.CLIENT)
 class EntryPlugZero(val pilot: IPilot) extends IEntryPlug {
   
-  @SideOnly(Side.CLIENT)
   var movementInputVanilla: MovementInput = null;
   
   val movementInput: MovementInputFromCode = new MovementInputFromCode();
   
-  def start(): Unit = {
+  override def start(): Unit = {
     this.pilot.synchronized {
       SiliconAngels.proxy.startEntryPlug(this);
     }
   }
   
-  def stop(): Unit = {
+  override def stop(): Unit = {
     this.pilot.synchronized {
       SiliconAngels.proxy.stopEntryPlug(this);
     }
   }
   
-  def onTick(): Unit = {
-    return;
+  var i = 0;
+  override def onTick(): Unit = {
+    if (i % 20 == 0) {
+      this.setActiveItemOrBlock(1);
+    }
+    i += 1;
   }
   
   def faceDirection(degrees: Int): Unit = {
@@ -35,6 +41,6 @@ class EntryPlugZero(val pilot: IPilot) extends IEntryPlug {
   }
   
   def setActiveItemOrBlock(itemOrBlockId: Int): Unit = {
-    return;
+    this.pilot.player.sendQueue.addToSendQueue(SiliconAngels.packetFactory.serializeJson(SiliconAngels.MOD_NETWORKCHANNEL_B, new SetActiveItemOrBlock(3)));
   }
 }

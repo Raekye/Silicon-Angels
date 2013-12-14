@@ -4,6 +4,9 @@ import net.minecraft.util.MovementInput;
 
 import scala.math;
 
+import _root_.cpw.mods.fml.relauncher.{ Side, SideOnly };
+
+@SideOnly(Side.CLIENT)
 class MovementInputFromCode extends MovementInput {
   private var _shouldForward: Int = 0;
   private var _shouldStrafe: Int = 0;

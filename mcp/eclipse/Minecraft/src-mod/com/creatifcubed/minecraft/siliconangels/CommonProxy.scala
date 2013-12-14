@@ -3,8 +3,7 @@ package com.creatifcubed.minecraft.siliconangels;
 import com.creatifcubed.minecraft.siliconangels.models.{ IEntryPlug, EntryPlugZero };
 
 import net.minecraft.entity.player.EntityPlayer;
-import _root_.cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
+import _root_.cpw.mods.fml.relauncher.{ Side, SideOnly };
 
 class CommonProxy {
   
@@ -21,6 +20,6 @@ class CommonProxy {
   }
   
   def registerRegistries(): Unit = {
-    TickRegistry.registerTickHandler(new TickHandler(), Side.SERVER);
+    return;
   }
 }

@@ -6,10 +6,12 @@ import net.minecraft.network.packet.{ Packet250CustomPayload, Packet131MapData, 
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.creatifcubed.minecraft.siliconangels.network.PacketFactory;
-import com.creatifcubed.minecraft.siliconangels.network.ModCommand;
+import com.creatifcubed.minecraft.siliconangels.network.{ ModCommand, SetActiveItemOrBlock };
 
 class RegularPacketHandler extends IPacketHandler {
-  val handlers: Map[String, ChannelHandler] = Map(SiliconAngels.MOD_NETWORKCHANNEL_A -> new ChannelAHandler());
+  val handlers: Map[String, ChannelHandler] = Map(
+    SiliconAngels.MOD_NETWORKCHANNEL_A -> new ChannelAHandler()
+    , SiliconAngels.MOD_NETWORKCHANNEL_B -> new ChannelBHandler());
   
   def onPacketData(manager: INetworkManager, packet: Packet250CustomPayload, player: Player): Unit = {
     this.handlers.get(packet.channel) match {
@@ -32,6 +34,13 @@ trait ChannelHandler {
 class ChannelAHandler extends ChannelHandler {
   def onPacketData(manager: INetworkManager, packet: Packet250CustomPayload, player: EntityPlayer): Unit = {
     val modCommand = SiliconAngels.packetFactory.deserializeJson(packet.data, classOf[ModCommand]);
-    SiliconAngels.log.info("Mod command sent: %s - %s. World is remote: %b".format(modCommand.modId, modCommand.args.mkString(", "), player.worldObj.isRemote));
+    SiliconAngels.log.info("Mod command recieved: %s - %s. World is remote: %b".format(modCommand.modId, modCommand.args.mkString(", "), player.worldObj.isRemote));
+  }
+}
+
+class ChannelBHandler extends ChannelHandler {
+  def onPacketData(manager: INetworkManager, packet: Packet250CustomPayload, player: EntityPlayer): Unit = {
+    val setActiveItemOrBlock = SiliconAngels.packetFactory.deserializeJson(packet.data, classOf[SetActiveItemOrBlock]);
+    SiliconAngels.log.info("Set active item or recieved sent: %d".format(setActiveItemOrBlock.itemOrBlockId));
   }
 }

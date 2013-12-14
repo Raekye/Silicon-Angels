@@ -5,6 +5,8 @@ import com.creatifcubed.minecraft.siliconangels.models.{ IEntryPlug, EntryPlugZe
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
 import _root_.cpw.mods.fml.client.registry.KeyBindingRegistry;
+import _root_.cpw.mods.fml.common.registry.TickRegistry;
+import _root_.cpw.mods.fml.relauncher.{ Side, SideOnly };
 
 class ClientProxy extends CommonProxy {
   
@@ -28,6 +30,7 @@ class ClientProxy extends CommonProxy {
   
   override def registerRegistries(): Unit = {
     super.registerRegistries();
+    TickRegistry.registerTickHandler(new TickHandler(), Side.CLIENT);
     KeyBindingRegistry.registerKeyBinding(new KeyHandler());
   }
 }

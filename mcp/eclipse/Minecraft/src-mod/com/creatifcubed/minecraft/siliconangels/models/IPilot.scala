@@ -1,8 +1,8 @@
 package com.creatifcubed.minecraft.siliconangels.models;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 
 trait IPilot {
   
-  def player: EntityPlayer;
+  def player: EntityClientPlayerMP;
 }
